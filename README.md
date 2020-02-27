@@ -1,0 +1,1 @@
+Launcher JavaFX en développement, le code est open-source mais merci de ne pas le reprendre sans me mentionner.
