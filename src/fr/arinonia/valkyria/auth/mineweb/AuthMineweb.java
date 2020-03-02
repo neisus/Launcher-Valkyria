@@ -55,7 +55,7 @@ public class AuthMineweb {
                     return String.valueOf(jsonObject.get(info)).replaceAll("\"", "");
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Main.logger.warn(e.getMessage());
             }
         }else{
             Main.logger.warn("Vous n'êtes pas connecté ");

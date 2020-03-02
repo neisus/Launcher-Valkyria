@@ -1,5 +1,6 @@
 package fr.arinonia.valkyria;
 
+import fr.arinonia.valkyria.files.FileManager;
 import fr.arinonia.valkyria.utils.AriLogger;
 import javafx.application.Application;
 

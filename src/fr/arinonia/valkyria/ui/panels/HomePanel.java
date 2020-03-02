@@ -86,6 +86,7 @@ public class HomePanel extends Panel {
         GridPane.setVgrow(scrollPane, Priority.ALWAYS);
         scrollPane.getStylesheets().add(Main.class.getResource("/fr/arinonia/valkyria/ui/resources/css/scrollbar.css").toExternalForm());
 
+
         VBox vBox = new VBox();
         GridPane.setHgrow(vBox, Priority.ALWAYS);
         GridPane.setVgrow(vBox, Priority.ALWAYS);
@@ -135,13 +136,67 @@ public class HomePanel extends Panel {
         footerPane.setMinHeight(280);
         footerPane.setTranslateY(100);
         showFooterPanel(footerPane);
-        this.centerPane.getChildren().add(scrollPane);
+        this.centerPane.getChildren().addAll(scrollPane);
         scrollPane.setContent(vBox);
         vBox.getChildren().add(0,topPane);
         vBox.getChildren().add(1,newsPane);
         vBox.getChildren().add(2,aboutPane);
         vBox.getChildren().add(3,footerPane);
 
+    }
+
+    private void displaySettingsFrame() {
+        GridPane panel = new GridPane();
+        GridPane.setVgrow(panel, Priority.ALWAYS);
+        GridPane.setHgrow(panel, Priority.ALWAYS);
+        GridPane.setValignment(panel, VPos.CENTER);
+        GridPane.setHalignment(panel, HPos.CENTER);
+        GridPane pane = new GridPane();
+        GridPane.setVgrow(pane, Priority.ALWAYS);
+        GridPane.setHgrow(pane, Priority.ALWAYS);
+        GridPane.setValignment(pane, VPos.CENTER);
+        GridPane.setHalignment(pane, HPos.CENTER);
+
+        pane.setMaxWidth(680);
+        pane.setMinWidth(680);
+        pane.setMaxHeight(440);
+        pane.setMinHeight(440);
+        pane.setStyle("-fx-background-color: rgba(48,84,100,0.4)");
+
+
+        GridPane leftBackground = new GridPane();
+        GridPane.setVgrow(leftBackground, Priority.ALWAYS);
+        GridPane.setHgrow(leftBackground, Priority.ALWAYS);
+        GridPane.setValignment(leftBackground, VPos.TOP);
+        GridPane.setHalignment(leftBackground, HPos.LEFT);
+        leftBackground.setMinWidth(200);
+        leftBackground.setMaxWidth(200);
+        leftBackground.setMinHeight(438);
+        leftBackground.setMaxHeight(438);
+        leftBackground.setTranslateY(1);
+        leftBackground.setTranslateX(1);
+        leftBackground.setStyle("-fx-background-color: #12151c; -fx-opacity: 90%");
+        GridPane rightBackground = new GridPane();
+        GridPane.setVgrow(rightBackground, Priority.ALWAYS);
+        GridPane.setHgrow(rightBackground, Priority.ALWAYS);
+        rightBackground.setStyle("-fx-background-color: #171b24");
+        rightBackground.setMinWidth(477);
+        rightBackground.setMaxWidth(477);
+        rightBackground.setMinHeight(438);
+        rightBackground.setMaxHeight(438);
+        rightBackground.setTranslateX(202);
+        Rectangle rect = new Rectangle();
+        GridPane.setVgrow(rect, Priority.ALWAYS);
+        GridPane.setHgrow(rect, Priority.ALWAYS);
+        GridPane.setValignment(rect, VPos.BOTTOM);
+
+        rect.setHeight(75);
+        rect.setWidth(477);
+        rect.setFill(Color.rgb(36,48,64));
+        pane.getChildren().addAll(leftBackground, rightBackground);
+        rightBackground.getChildren().add(rect);
+        panel.getChildren().add(pane);
+        this.centerPane.getChildren().add(panel);
     }
 
     private void showFooterPanel(@NotNull GridPane pane){
@@ -358,7 +413,10 @@ public class HomePanel extends Panel {
         settingsButton.setGraphic(settingsIcon);
         settingsButton.setOnMouseEntered(e->this.layout.setCursor(Cursor.HAND));
         settingsButton.setOnMouseExited(e->this.layout.setCursor(Cursor.DEFAULT));
-
+        settingsButton.setOnMouseClicked(e-> {
+            System.out.println("Open settings frame");
+            displaySettingsFrame();
+        });
         ABigDownloadBar aBigDownloadBar = new ABigDownloadBar();
 
         pane.getChildren().addAll(valkyriaTitle,farm,complet,fluide,desc,bigVideo, installButton, settingsButton,aBigDownloadBar);

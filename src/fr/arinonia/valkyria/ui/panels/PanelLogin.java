@@ -6,6 +6,7 @@ import fr.arinonia.valkyria.auth.premium.Auth;
 import fr.arinonia.valkyria.auth.premium.exceptions.AuthenticationUnavaibleException;
 import fr.arinonia.valkyria.auth.premium.exceptions.RequestException;
 import fr.arinonia.valkyria.auth.premium.responses.AuthenticationResponse;
+import fr.arinonia.valkyria.files.FileManager;
 import fr.arinonia.valkyria.ui.PanelManager;
 import fr.arinonia.valkyria.ui.panel.Panel;
 import javafx.geometry.HPos;
@@ -26,10 +27,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PanelLogin extends Panel {
+
+
+
     @Override
     public void init(PanelManager panelManager) {
         super.init(panelManager);
@@ -130,7 +133,7 @@ public class PanelLogin extends Panel {
         usernameLabel.setTranslateX(37.5);
         usernameLabel.setTranslateY(110);
 
-        TextField usernameField = new TextField("Arinonia");
+        TextField usernameField = new TextField(this.panelManager.getFileManager().getConfig().get("username"));
         GridPane.setVgrow(usernameField, Priority.ALWAYS);
         GridPane.setHgrow(usernameField, Priority.ALWAYS);
         GridPane.setHalignment(usernameField, HPos.LEFT);
@@ -163,7 +166,7 @@ public class PanelLogin extends Panel {
         passwordLabel.setTranslateY(200);
 
         PasswordField passwordField = new PasswordField();
-        passwordField.setText("tibotoma76");
+        passwordField.setText(this.panelManager.getFileManager().getConfig().get("password"));
         GridPane.setVgrow(passwordField, Priority.ALWAYS);
         GridPane.setHgrow(passwordField, Priority.ALWAYS);
         GridPane.setHalignment(passwordField, HPos.LEFT);
@@ -253,6 +256,8 @@ public class PanelLogin extends Panel {
                 if(authMineweb.isConnected()) {
                     Main.logger.log("Vous êtes connecté en tant que " + authMineweb.getInfo("pseudo") + "\n rank : " +
                             authMineweb.getInfo("rank") + ", money : " + authMineweb.getInfo("money") + "€");
+                    this.panelManager.getFileManager().getConfig().set("username", usernameField.getText());
+                    this.panelManager.getFileManager().getConfig().set("password", passwordField.getText());
                     this.panelManager.showPanel(new HomePanel());
                 }
             }

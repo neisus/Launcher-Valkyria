@@ -14,9 +14,9 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class Auth {
@@ -44,9 +44,7 @@ public class Auth {
            }
        }
     }
-    public static AuthenticationResponse authenticate(String username, String password, String clientToken)throws RequestException, AuthenticationUnavaibleException{
-        return authenticate(username,password,clientToken,null);
-    }
+    //spynx larynx
     public static AuthenticationResponse authenticate(String username, String password)throws RequestException, AuthenticationUnavaibleException{
         return authenticate(username,password,null,null);
     }
@@ -80,15 +78,15 @@ public class Auth {
             String response;
             switch (responseCode){
                 case 200:
-                    reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+                    reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
                     response = reader.readLine();
                     break;
                 case 204:
-                    reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "UTF-8"));
+                    reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8));
                     response = reader.readLine();
                     break;
                 default:
-                    reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "UTF-8"));
+                    reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8));
                     response = reader.readLine();
                     break;
             }

@@ -2,6 +2,7 @@ package fr.arinonia.valkyria.ui;
 
 import com.sun.istack.internal.NotNull;
 import fr.arinonia.valkyria.ValkyriaLauncher;
+import fr.arinonia.valkyria.files.FileManager;
 import fr.arinonia.valkyria.ui.panel.IPanel;
 import fr.arinonia.valkyria.ui.panels.includes.TopPanel;
 import fr.arinonia.valkyria.ui.utils.ResizeHelper;
@@ -21,6 +22,7 @@ public class PanelManager {
     private GridPane layout;
     private TopPanel topPanel = new TopPanel();
     private GridPane centerPanel = new GridPane();
+    private FileManager fileManager;
 
     public PanelManager(ValkyriaLauncher valkyriaLauncher, Stage stage) {
         this.valkyriaLauncher = valkyriaLauncher;
@@ -28,6 +30,7 @@ public class PanelManager {
     }
 
     public void init() {
+        fileManager = new FileManager();
         this.stage.setTitle("Valkyria Launcher V2");
 
         this.stage.setMinWidth(1280);
@@ -73,4 +76,6 @@ public class PanelManager {
     }
 
     public TopPanel getTopPanel() { return topPanel; }
+
+    public FileManager getFileManager() { return fileManager; }
 }
